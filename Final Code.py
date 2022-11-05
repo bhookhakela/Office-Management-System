@@ -10,7 +10,7 @@ import time
 
 #Connection to SQL Server:
 
-con=mysql.connector.connect(host='localhost', password='123',user='root',database='office')
+con=mysql.connector.connect(host='localhost', password='root',user='root',database='office')
 
 #Cursor Name is cur
 
@@ -39,22 +39,27 @@ gui.title("Office Management System")
 
 #insert the icon image
 
-gui.iconbitmap(r'C:\Users\Lenovo\Desktop\New folder\logo.ico')
+gui.iconbitmap(r'C:\harsh\school\computer\class 12 cs project\gradient.png')
 fnt = Font(family = "Lucida Sans Unicode", size = 15) 
+bg=PhotoImage(file=r"C:\harsh\school\computer\class 12 cs project\gradient.png")
+
  
+#canvas creation to contain frame
+
+canvas=tk.Canvas(gui,width=626,height=417)
+canvas.place(x = 0, y = 0, anchor = NW)
+canvas.create_image(0,0,image=bg,anchor=NW)
+
+
 #frame creation for content
 
 frame = LabelFrame(gui,padx=5,pady=5)
 frame.place(relx = 0.5, rely = 0.5, anchor = CENTER)
 frame = LabelFrame(canvas,padx=5,pady=5,bg='#e5f7fb')
 frame.place(relx = 0.5, rely = 0.5, anchor = CENTER)
-bg=PhotoImage(file=r"C:\Users\Lenovo\Desktop\New folder\bg.png")
 
-#canvas creation to contain frame
 
-canvas=tk.Canvas(gui,width=626,height=417)
-canvas.place(x = 0, y = 0, anchor = NW)
-canvas.create_image(0,0,image=bg,anchor=NW)
+
 
 #functions
 
@@ -72,7 +77,7 @@ def logexe():
     
     cur.execute("select password from info where ec=%s",log)
     z=cur.fetchall()
-    print(pwd.get())
+    #print(pwd.get())
     if z==[]:
             
         tk.Label(gui,text='User does not exist!',font=fnt,bg='#e5f7fb').grid(column='0',row='8',sticky='w')
@@ -151,7 +156,7 @@ def postlogin():
         for j in i:
             wrk=j
 
-    print(wrk)        
+    #print(wrk)        
     if wrk==None:
         tk.Label(frame, text="No Work Alotted",font=fnt,bg='#e5f7fb').grid(column = 0,row = 10)
     else:
@@ -174,11 +179,11 @@ def postlogin():
         for i in z:
                 for j in i:
                         n=j
-        print(n)
+        #print(n)
         
         wkl.append(n)
         twh = int(wkl[0])+int(wkl[1])
-        print('twh',twh)
+        #print('twh',twh)
                     
         tk.Label(frame, text = "Work hour: "+ str(wk),bg='#e5f7fb').grid(column = 0, row = 3)
 
@@ -186,11 +191,12 @@ def postlogin():
 
         upd.append(twh)
         upd.append(x)
-        print("Update",upd)
+        #print("Update",upd)
 
         cur.execute("update info set wkhr=%s where ec= %s",(upd[0],upd[1]))
         con.commit()
         frame.destroy()
+        gui.destroy()
 
     lo = tk.Button(frame,text='Logout',command= logout,font=fnt).grid(column='1',row='14',sticky='SE')
     tk.Label(frame,text='',font=fnt,bg='#e5f7fb').grid(column='0',row='4',sticky='w')
@@ -372,12 +378,12 @@ def upwork():
              
     else:
         tk.Label(gui2,text='Designation and EC does not Match',font=fnt,bg='#e5f7fb').grid(column='0',row='18')
-        print('Wrong Designation',font=fnt)
+        #print('Wrong Designation',font=fnt)
         return False
 
 #main code
     
-tablecreation()
+#tablecreation()
 
 login()
 
